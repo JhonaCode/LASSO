@@ -44,9 +44,17 @@ import  sam_python.diurnal   as dc
 #
 #name        =  [f1['name']]
 
-#ex          =  [f060615] 
-#name        =  ['l060615']
-#di          =  (2015,6,6,9,2015,6,6,18)
+ex          =  [f060615] 
+name        =  ['l060615']
+di          =  (2015,6,6,9,2015,6,6,18)
+
+
+#a_string = "MCUP"
+#mcup=getattr(f060615, a_string)
+#print(mcup[:])
+
+#exit()
+#
 
 #ex          =  [f090615] 
 #name        =  ['l090615']
@@ -80,9 +88,9 @@ import  sam_python.diurnal   as dc
 #name        =  ['l250616']
 #di          =  (2016,6,25,9,2016,6,25,18)
 
-ex          =  [f160716] 
-name        =  ['l160716']
-di          =  (2016,7,16,9,2016,7,16,18)
+#ex          =  [f160716] 
+#name        =  ['l160716']
+#di          =  (2016,7,16,9,2016,7,16,18)
 
 #ex          =  [f190716] 
 #name        =  ['l190716']
