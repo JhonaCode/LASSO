@@ -1,7 +1,7 @@
 import os
 
 #Repository location 
-computer   = '/pesq/dados/bamc/disk04/jhonatan/git_repositories/LASSO'
+computer   = '/dados/bamc/jhonatan.aguirre/DATA/git_repositories/LASSO'
 
 #Figure out folder  
 path = "../doc/figure_out/"
@@ -13,3 +13,8 @@ if not os.path.exists(path):
 
 
 file_fig= path
+file_temporal= path
+
+#Size in inches to make the temporal plots
+tplot_size=1.0
+

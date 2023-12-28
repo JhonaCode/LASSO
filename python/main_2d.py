@@ -10,9 +10,7 @@
 ######################################
 ######################################
 
-import  sam_python.data_own          as down
-
-import  sam_python.two_dimensional   as cf
+import  sam_python.two_dimensional   as two
 
 from    files_direction import *
 
@@ -23,52 +21,102 @@ import  matplotlib.pyplot as plt
 #Defined the name of the experiments defined in Parameters files 
 #separate with colon
 
-exp          =  [f060615] 
+exp          =  [f060615,f090615,f270615,
+                 f010815,
+                 f290815,f180516,f300516,
+                 f140616,f250616,
+                 f160716,f190716,f200716,
+                 f190816,f300816] 
+
+
+var     =  ['MCUP']###,'RELH','WOBS',]
+
+#print(f060615.z[0:80])
+#exit()
+
+
+cmf=(00.0,0.15,21,'kg/m/s2')
+ccf=(0.0,25,21)
+crh=(10,90,21)
+cw =(-3,3,21)
 
 contour      =[
-                (00.0,0.1,21),(0.0,15,21),(20,90,21),(-2,2,21)
+                [cmf],[cmf],[cmf],
+                [cmf],
+                [cmf],[cmf],[cmf],
+                [cmf],[cmf],
+                [cmf],[cmf],[cmf],
+                [cmf],[cmf],
               ]
 
-
+v1=[1]
 var_to      =  [
-                    1, 100, 1,100,  
+                    [v1],[v1],[v1], 
+                    [v1],[v1],[v1], 
+                    [v1],[v1],[v1], 
+                    [v1],[v1],[v1], 
+                    [v1],[v1],[v1], 
                ]
 
 #figures name
 exp_label   =  [ 
-                 'uMF', 'CF'  , 'RH','Wobs'
+                    ['uMF']
                ]
 
-#l1           =  ( 0.00,4.0,'lower right',True,True)
-#lrh          =  ( 70.0,4.0,'lower right',True,True)
-
-#leg_loc      =  [ 
-#                l1,l1,l1,
-#                l1,l1,lrh,
-#                l1,l1,l1,
-#                ]
-
+a1=(0,5.0)
 alt         =  [
-                5.0, 5.0, 5.0, 
-                5.0, 5.0, 5.0, 
-                5.0, 5.0, 5.0, 
+                [a1],[a1],[a1],[a1],
+                [a1],[a1],[a1],[a1],
+                [a1],[a1],[a1],[a1],
+                [a1],[a1],[a1],[a1],
                ]
+
+#co1='RdBu_r'
+co1         =  'whbuyl'
 
 color       =  [
-                'RdBu_r','RdBu_r','RdBu_r','RdBu_r'
+                [co1],[co1],[co1],[co1],[co1],
+                [co1],[co1],[co1],[co1],[co1],
+                [co1],[co1],[co1],[co1],[co1],
+                [co1],[co1],[co1],[co1],[co1],
                ]
-
+s1=False
 show       =  [
-                True,True,True,
-                True,True,True,
-                True,True,True,
+                [s1],[s1],[s1],[s1],[s1], 
+                [s1],[s1],[s1],[s1],[s1], 
+                [s1],[s1],[s1],[s1],[s1], 
+                [s1],[s1],[s1],[s1],[s1], 
                ]
 
-#Minimum calll
-#fig,ax      =   dc.diurnal_hours_dict(ex,name,var,ex_date)
-#complete call
 
-for ex in exp:
+a1          =  (True,True,True ,True,0.35,1.34)
+axis_on     =  [
+                [a1],[a1],[a1],[a1],
+                [a1],[a1],[a1],[a1],
+                [a1],[a1],[a1],[a1],
+                [a1],[a1],[a1],[a1],
+                [a1],[a1],[a1],[a1],
+                [a1],[a1],[a1],[a1],
+               ]
 
-    #cf.plot2d_contour(ex,contour,axis_on,show)
-    cf.plot2d_contour(ex,var_to=var_to,contour=contour,color=color, alt=alt,show=show)
+
+#d1=[(2014,1,1,8,00),(2014,1,1,20,5)]
+#days        = [
+#                [d1,d1],
+#                [d1,d1],
+#                [d1,d1],
+#                [d1,d1],
+#                [d1,d1],
+#                [d1,d1],
+#                [d1,d1],
+#                [d1,d1],
+#                [d1,d1],
+#                [d1,d1],
+#              ]
+
+
+two.plot2d_contour(exp,var=var,contour=contour,alt=alt,color=color,var_to=var_to,axis_on=axis_on,show=show)
+
+
+
+
