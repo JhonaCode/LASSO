@@ -38,14 +38,24 @@ import  sam_python.diurnal   as dc
 #Defined the name of the experiments defined in Parameters files 
 #separate with colon
 
-exp          =  [f060615,f090615,f270615,
-                 f010815,
-                 f290815,f180516,f300516,
-                 f140616,f250616,
-                 f160716,f190716,f200716,
-                 f190816,f300816] 
+##Small
+exp          =  [f060615,f270615,
+                 f290815,f250616,
+                 f180816,f300816] 
+
+##Big
+exp          =  [f090615,f010815,
+                 f100616,f110616,
+                 f190616,f160716,
+                 f190716,f200716,
+                 ] 
+##Não existe
+#exp          =  [
+#                 f180516,f140616,
+#                 f190616] 
 
 
+#var     =  ['MCUP','WOBS','RELH','CLD']###,'RELH','WOBS',]
 var     =  ['MCUP']###,'RELH','WOBS',]
 
 #lim         =  [
@@ -66,7 +76,7 @@ var     =  ['MCUP']###,'RELH','WOBS',]
 ##                 'CLW', 'Q1'  , 'Q2',
 ##               ]
 
-l1=[(0,0.1)] 
+l1=[(0,0.1),(-4,4),(5,95),(0,30)] 
 lim         =[
                 l1,l1,l1,l1,l1,
                 l1,l1,l1,l1,l1,
@@ -74,7 +84,7 @@ lim         =[
                 l1,l1,l1,l1,l1,
             ]
 
-v1=[1]
+v1=[1,100,1,100]
 var_to      =  [
                     v1,v1,v1,v1,v1, 
                     v1,v1,v1,v1,v1, 
@@ -83,19 +93,15 @@ var_to      =  [
                     v1,v1,v1,v1,v1, 
                ]
 
-#figures name
-#exp_label   =  [ 
-#                    ['uMF']
-#               ]
 
-a1=[(0,5.0)]
+a1=[(0,5.0),(0,5.0),(0,5.0),(0,5.0)]
 alt         =  [
                 a1,a1,a1,a1,a1,a1,
                 a1,a1,a1,a1,a1,a1,
                 a1,a1,a1,a1,a1,a1,
                ]
 
-s1=[True]
+s1=[True,True,True,True]
 show       =  [
                 s1,s1,s1,s1,
                 s1,s1,s1,s1,
@@ -112,7 +118,7 @@ diurnal       =  [
                ]
 
 
-co1=['black']
+co1=['black','black','black','black']
 color       =  [
                 co1,co1,co1,co1, 
                 co1,co1,co1,co1, 
@@ -123,9 +129,10 @@ color       =  [
 xlabel      ='uMF [kgm$^{2}$s$^{-1}]$'
 
 
-
-g1           =  [( 0.00,4.0,'lower right',True,True,True)]
+g3           =  ( 0.00,4.0,'lower right',True,True,True)
 lrh          =  ( 70.0,4.0,'lower right',True,True,True)
+
+g1=[g3,g3,g3,g3]
 
 leg_loc      =  [ 
                     g1,g1,g1,g1,g1,
@@ -135,4 +142,4 @@ leg_loc      =  [
                     g1,g1,g1,g1,g1,
                 ]
 
-dc.diurnal_hours_exp_var_sam(exp,var,alt=alt,leg_loc=leg_loc,lim=lim,color=color,show=show,diurnal=diurnal)
+dc.diurnal_hours_exp_var_sam(exp,var,alt=alt,var_to=var_to,leg_loc=leg_loc,lim=lim,color=color,show=show,diurnal=diurnal)
