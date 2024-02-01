@@ -85,7 +85,7 @@ def read(path,tipe):
     
         count += 1
     
-    return time,z,pressure,tpls,qls,uls,vls,wls
+    return time,z,pressure,p0,tpls,qls,uls,vls,wls
 
 
 def read_1d(path,tipe):

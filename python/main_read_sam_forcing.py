@@ -65,44 +65,152 @@ from     metpy.units import units
 
 #file22= open('%s/lasso_sam_lsf_20160610/config/sfc'%(computer)  ,'r')
 
-
-path1='%s/lasso_sam_lsf_20160610/config'%(computer)
-
-tls,zls,pressurels,tpls,qls,uls,vls,wls=rs.read(path1,'lsf')
-
-time,z,pressure,T,q,u,v,w=rs.read(path1,'snd')
-
-t_sf,sst,shf,lhf,tau=rs.read_1d(path1,'sfc')
+exp=[20160610,20160611,20160614]
 
 
-exit()
+#snd
+T_all=[]
+q_all=[]
+u_all=[]
+v_all=[]
+w_all=[]
 
-time=np.zeros(ndtp)
-ndlev=0
-pressure=0
 
-for k in range(0,len(time)-1): 
+size    =[]
+z_all   =[]
 
-    #if(time[k]>=dayinit and time[k]<=dayfin):
+for ex in exp:
 
-    file11.read("%f\t%d\t%f\tday\tlevels\tpres0\n"%(time[k],ndlev,pressure))
+    path1='%s/lasso_sam_lsf_%s/config'%(computer,ex)
+    time,z,pressure,p0,T,q,u_sn,v_sn,w_sn=rs.read(path1,'snd')
+    
+    size.append(T.shape[1])
+    z_all.append(z)
+    T_all.append(T)
+    q_all.append(q)
+    u_all.append(u_sn)
+    v_all.append(v_sn)
+    w_all.append(w_sn)
 
-    print(time[k],ndlev,pressure)
 
-    exit()
-    #file22.read("%f\t%d\t%f\tday\tlevels\tpres0\n"%(time[k],ndlev,pressure[0]))
-    #file33.read("%f\t%f\t%f\t%f\t%f\n"%(time[k],T_skin_mean[k],SH_mean[k],LH_mean[k],Tau[0])) 
+#Large size sounding
+may=np.argmax(size)
 
-    #for i in range(0,ndlev):
+T_t=[]
+q_t=[]
+u_t=[]
+v_t=[]
+w_t=[]
 
-    #    file11.write("%f\t%f\t%f\t%f\t%f\t%f\n"%(z[k,i],pressure[i],theta_inv[k,i],q_sam[k,i],u[k,i],v[k,i])) 
-    #    file22.write("%f\t%f\t%e\t%e\t%f\t%f\t%f\n"%(z[k,i],pressure[i],s_ls[k,i],q_ls[k,i],u[k,i],v[k,i],w[k,i])) 
-    #    file23.write("%f\t%f\t%e\t%e\t%f\t%f\t%f\n"%(z[k,i],pressure[i],t_ls[k,i],q_ls[k,i],u[k,i],v[k,i],w[k,i])) 
+for i in range (len(exp)):
+    itrT=np.interp(z_all[may][0],z_all[i][0],T_all[i][0,:])
+    itrq=np.interp(z_all[may][0],z_all[i][0],q_all[i][0,:])
+    itru=np.interp(z_all[may][0],z_all[i][0],u_all[i][0,:])
+    itrv=np.interp(z_all[may][0],z_all[i][0],v_all[i][0,:])
+    itrw=np.interp(z_all[may][0],z_all[i][0],w_all[i][0,:])
+
+    T_t.append(itrT)
+    q_t.append(itrq)
+    u_t.append(itru)
+    v_t.append(itrv)
+    w_t.append(itrw)
+
+#sfc
+shf_all=[]
+lhf_all=[]
+sst_all=[]
+tau_all=[]
+
+#lsf
+tpls_all=[]
+qls_all =[]
+uls_all =[]
+vls_all =[]
+wls_all =[]
+
+
+for ex in exp:
+
+    path1='%s/lasso_sam_lsf_%s/config'%(computer,ex)
+    
+    tls,zls,pressurels,p0,tpls,qls,uls,vls,wls=rs.read(path1,'lsf')
+
+    tpls_all.append(tpls)
+    qls_all.append(qls)
+    uls_all.append(uls)
+    vls_all.append(vls)
+    wls_all.append(wls)
+    
+    tsf,sst,shf,lhf,tau=rs.read_1d(path1,'sfc')
+
+    sst_all.append(sst)
+    shf_all.append(shf)
+    lhf_all.append(lhf)
+    tau_all.append(tau)
+
+#print(zls[0,:])
+#exit()
+
+#print(tsf.shape)
+#print(tls.shape)
+#print(time.shape)
+#exit()
+
+theta_ls=np.mean(tpls_all,axis=0)
+q_ls=np.mean(qls_all ,axis=0)
+u_ls=np.mean(uls_all ,axis=0)
+v_ls=np.mean(vls_all ,axis=0)
+w_ls=np.mean(wls_all ,axis=0)
+
+theta_inv=np.mean(T_t,axis=0)
+q_sam   =np.mean(q_t,axis=0)
+u       =np.mean(u_t,axis=0)
+v       =np.mean(v_t,axis=0)
+w       =np.mean(w_t,axis=0)
+
+T_skin_mean =np.mean(sst_all,axis=0)
+SH_mean     =np.mean(shf_all,axis=0)
+LH_mean     =np.mean(lhf_all,axis=0)
+Tau_mean    =np.mean(tau_all,axis=0)
+
+
+label='arm_teste'
+folder='./'
+
+file11= open('%s/snd_%s'%(folder,label)  ,'w+')
+file22= open('%s/lsf_%s'%(folder,label)  ,'w+')
+file33= open('%s/sfc_%s'%(folder,label)  ,'w+')
+
+file11.write("z[m]\tp[mb]\ttp[K]\tq[g/kg]\tu[m/s]\tv[m/s]\n")
+file22.write("z[m]\tp[mb]\ttls(h)[K/s] \tqls[kg/kg/s]\tu[m/s]\tv[m/s]\tw[m/s]\n")
+file33.write("day\t\tsst(K)\t\tH(W/m2)\t\tLE(W/m2)\tTAU(m2/s2) \n")
+
+for k in range(0,len(tsf)): 
+
+    file33.write("%f\t%f\t%f\t%f\t%f\n"%(tsf[k],T_skin_mean[k],SH_mean[k],LH_mean[k],Tau_mean[k])) 
+
+pp=9999.999
+
+for k in range(0,len(tls)): 
+
+    file11.write("%f\t%d\t%f\tday\tlevels\tpres0\n"%(tls[k],size[may],p0))
+
+    for i in range(0,size[may]):
+
+        file11.write("%f\t%f\t%f\t%f\t%f\t%f\n"%(z_all[may][0,i],pp,theta_inv[i],q_sam[i],u[i],v[i])) 
+
+
+for k in range(0,len(time)): 
+
+    file22.write("%f\t%d\t%f\tday\tlevels\tpres0\n"%(time[k],len(zls[0,:]),p0))
+
+    for i in range(0,len(zls[0,:])):
+
+        file22.write("%f\t%f\t%e\t%e\t%f\t%f\t%f\n"%(zls[k,i],pp,theta_ls[k,i],q_ls[k,i],u_ls[k,i],v_ls[k,i],w_ls[k,i])) 
 
 file11.close()
-#file22.close()
-#file23.close()
-#file33.close()
+file22.close()
+file33.close()
 
 """
 ## Writing NetCDF files to scam 
