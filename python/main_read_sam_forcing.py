@@ -1,16 +1,16 @@
 #**************************
 #Program to average the forcing variables 
 #of specific shallow day, to created a
-#a single forcing.
+#a single forcing from sam output of LASSO.
 ##################################################
 #The data from the SCM program was used as forcing. 
 ##################################################
 #Note: The FORCING ARE CRETED IN UTC HOUR
 #Note: The plots are in local Manuaus time UTC-4
-#Data:01-02-23
+#Data:06-02-24
 #Created by: Jhonatan Aguirre
 #**************************
-#python 2.7
+#python 3.9
 #
 #paste: scm_lsf
 
@@ -29,8 +29,6 @@ import  datetime    as dt
 
 import forcings.read_sam_forcing as rs
 
-
-
 #from    Parameters_forcing_iop import *
 #       To change the plot parameter 
 from   	forcings.plotparameters 	import 	*
@@ -43,7 +41,7 @@ from    forcings.calculate_variables_forcing import *
 ################################################################ 
 #sys.path.append('..')
 
-#from    Parameters_dict import *
+from    Parameters_dict import *
 # to defined fig out direction 
 #from    files_direction import *
 
@@ -63,9 +61,19 @@ import   metpy.calc
 from     metpy.units import units
 
 
-#file22= open('%s/lasso_sam_lsf_20160610/config/sfc'%(computer)  ,'r')
+label ='lasso_sam_lsf'
+pyf='/dados/bamc/jhonatan.aguirre/git_repositories/LASSO/python'
+folder='%s/%s'%(pyf,label)
 
-exp=[20160610,20160611,20160614]
+
+exp          =  ["20150606","20150609","20150627",
+                 "20150801","20150829",     
+                 "20160518","20160530",     
+                 "20160610","20160611","20160614",
+                 "20160619","20160625",     
+                 "20160716","20160719","20160720",
+                 "20160818","20160819", 
+                 "20160830"]  
 
 
 #snd
@@ -79,9 +87,11 @@ w_all=[]
 size    =[]
 z_all   =[]
 
+
 for ex in exp:
 
-    path1='%s/lasso_sam_lsf_%s/config'%(computer,ex)
+    path1='%s/lasso_sam_%s/config'%(computer,ex)
+
     time,z,pressure,p0,T,q,u_sn,v_sn,w_sn=rs.read(path1,'snd')
     
     size.append(T.shape[1])
@@ -131,7 +141,7 @@ wls_all =[]
 
 for ex in exp:
 
-    path1='%s/lasso_sam_lsf_%s/config'%(computer,ex)
+    path1='%s/lasso_sam_%s/config'%(computer,ex)
     
     tls,zls,pressurels,p0,tpls,qls,uls,vls,wls=rs.read(path1,'lsf')
 
@@ -148,13 +158,6 @@ for ex in exp:
     lhf_all.append(lhf)
     tau_all.append(tau)
 
-#print(zls[0,:])
-#exit()
-
-#print(tsf.shape)
-#print(tls.shape)
-#print(time.shape)
-#exit()
 
 theta_ls=np.mean(tpls_all,axis=0)
 q_ls=np.mean(qls_all ,axis=0)
@@ -174,8 +177,12 @@ LH_mean     =np.mean(lhf_all,axis=0)
 Tau_mean    =np.mean(tau_all,axis=0)
 
 
-label='arm_teste'
-folder='./'
+
+# Check if the directory exists
+if not os.path.exists(folder):
+    # If it doesn't exist, create it
+    os.makedirs(folder)
+
 
 file11= open('%s/snd_%s'%(folder,label)  ,'w+')
 file22= open('%s/lsf_%s'%(folder,label)  ,'w+')

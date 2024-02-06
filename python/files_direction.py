@@ -1,7 +1,7 @@
 import os
 
 #Repository location 
-computer   = '/dados/bamc/jhonatan.aguirre/DATA/LASSO/DADOS'
+computer   = '/dados/bamc/jhonatan.aguirre/DATA/LASSO'
 
 #Figure out folder  
 #path = "../doc/figure_out/"
@@ -10,7 +10,6 @@ path = "/home/jhonatan.aguirre/repositories/relatorio_2024_1/figs"
 
 
 #forcing= ''%(computer)
-
 
 # Check if the directory exists
 if not os.path.exists(path):
