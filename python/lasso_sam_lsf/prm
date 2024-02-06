@@ -1,0 +1,88 @@
+&sgs_tke
+ dosmagor = .false.,
+/
+
+&micro_m2005
+ doicemicro = .true.,
+ dograupel = .true.,
+ dohail  = .false.,
+ dosb_warm_rain  = .false.,
+ dopredictnc = .true.,
+ dospecifyaerosol = .true.,
+ dosubgridw = .false.,
+ doarcticicenucl = .false.,
+ docloudedgeactivation = .true.,
+ nc0 = 250.0,
+ ccnconst = 120.0,
+ ccnexpnt = 0.4,
+ aer_rm1 =  0.2,
+ aer_rm2 = 0.7,
+ aer_n1 = 207.0,
+ aer_n2 = 8.5,
+ aer_sig1 = 1.5,
+ aer_sig2 = 2.45,
+ dofix_pgam = .false.,
+ pgam_fixed = 5.0,
+ douse_reffc = .false.,
+ douse_reffi = .false.
+/
+
+&parameters
+ caseid = 'alpha1r.varanal_300km_25mb_ls.varanal_300km_25mb_sf.sonde_init.144'
+
+ nrestart = 0,
+
+ dx = 100.,
+ dy = 100.,
+ dt = 0.5,
+ nstop = 108000,
+
+ day0 = 157.5
+
+ les = .true.,
+ land = .true.,
+
+ dosgs = .true.,
+ dodamping  = .true.,
+ doupperbound = .true.,
+ docloud = .true.,
+ doprecip = .true.,
+ dolongwave = .true.,
+ doshortwave = .true.,
+ doradforcing = .false.,
+ doseasons = .true.,
+ dolargescale = .true.,
+ dosurface = .true.,
+ dosfcforcing = .true.,
+ donudging_uv = .false.,
+ donudging_tq = .false.,
+ docoriolis = .true.,
+ dofplane = .true.,
+ fcor = 0.87e-4,
+
+ latitude0 = 36.61,
+ longitude0 =-97.49,
+
+ sfc_flx_fxd = .true.,
+ sfc_tau_fxd = .false.,
+ z0 = 0.04,
+
+ nrad = 120,
+
+ nprint = 300,
+ nstat = 1200,
+ nstatfrq = 10,
+ nrestart_skip = 5,
+
+ dosamconditionals = .true.,
+ dosatupdnconditionals = .true.,
+
+ nsave2d = 1200,
+ nsave2dstart  = 0,
+ nsave2dend = 999164000,
+
+ nsave3d = 1200,
+ nsave3dstart = 0,
+ nsave3dend = 999164000,
+
+/
