@@ -103,6 +103,28 @@ for ex in exp:
     w_all.append(w_sn)
 
 
+#   243.50000  
+#   243.54167  
+#   243.58333  
+#   243.62500  
+#   243.66667  
+#   243.70833  
+#   243.75000  
+#   243.79167  
+#   243.83333  
+#   243.87500  
+#   243.91667  
+#   243.95833  
+#   244.00000  
+#   244.04167  
+#   244.08333  
+#   244.12500  
+#   244.16667  
+#   244.20833  
+#   244.25000
+#
+
+
 #Large size sounding
 may=np.argmax(size)
 
@@ -159,6 +181,18 @@ for ex in exp:
     tau_all.append(tau)
 
 
+# To created the time at the first day of the year 
+it=0.5
+ft=1.25
+time_lsf=np.linspace(it,ft,len(tsf))
+
+it=0.5
+ft=1.5
+time=np.linspace(it,ft,len(time))
+
+
+
+
 theta_ls=np.mean(tpls_all,axis=0)
 q_ls=np.mean(qls_all ,axis=0)
 u_ls=np.mean(uls_all ,axis=0)
@@ -192,28 +226,29 @@ file11.write("z[m]\tp[mb]\ttp[K]\tq[g/kg]\tu[m/s]\tv[m/s]\n")
 file22.write("z[m]\tp[mb]\ttls(h)[K/s] \tqls[kg/kg/s]\tu[m/s]\tv[m/s]\tw[m/s]\n")
 file33.write("day\t\tsst(K)\t\tH(W/m2)\t\tLE(W/m2)\tTAU(m2/s2) \n")
 
-for k in range(0,len(tsf)): 
+pp=-999.0000
 
-    file33.write("%f\t%f\t%f\t%f\t%f\n"%(tsf[k],T_skin_mean[k],SH_mean[k],LH_mean[k],Tau_mean[k])) 
+for k in range(0,len(time)): 
 
-pp=9999.999
-
-for k in range(0,len(tls)): 
-
-    file11.write("%f\t%d\t%f\tday\tlevels\tpres0\n"%(tls[k],size[may],p0))
+    file11.write("%f\t%d\t%f\tday\tlevels\tpres0\n"%(time[k],size[may],p0))
 
     for i in range(0,size[may]):
 
         file11.write("%f\t%f\t%f\t%f\t%f\t%f\n"%(z_all[may][0,i],pp,theta_inv[i],q_sam[i],u[i],v[i])) 
 
 
-for k in range(0,len(time)): 
+for k in range(0,len(time_lsf)): 
 
-    file22.write("%f\t%d\t%f\tday\tlevels\tpres0\n"%(time[k],len(zls[0,:]),p0))
+    file22.write("%f\t%d\t%f\tday\tlevels\tpres0\n"%(time_lsf[k],len(zls[0,:]),p0))
 
     for i in range(0,len(zls[0,:])):
 
         file22.write("%f\t%f\t%e\t%e\t%f\t%f\t%f\n"%(zls[k,i],pp,theta_ls[k,i],q_ls[k,i],u_ls[k,i],v_ls[k,i],w_ls[k,i])) 
+
+for k in range(0,len(time_lsf)): 
+
+    file33.write("%f\t%f\t%f\t%f\t%f\n"%(time_lsf[k],T_skin_mean[k],SH_mean[k],LH_mean[k],Tau_mean[k])) 
+
 
 file11.close()
 file22.close()
