@@ -61,19 +61,46 @@ import   metpy.calc
 from     metpy.units import units
 
 
-label ='lasso_sam_lsf'
-pyf='/dados/bamc/jhonatan.aguirre/git_repositories/LASSO/python'
-folder='%s/%s'%(pyf,label)
+namef ='lsf_cases'
+pyf   ='/dados/bamc/jhonatan.aguirre/git_repositories/LASSO/python'
+folder='%s/%s'%(pyf,namef)
 
+"""
+label       ='all1_lsf'
+exp          =  [
+                 "20150627","20160518",
+                 "20150606","20160625",     
+                 "20160818",
+                 "20160830",
+                 "20160610","20160720",
+                 "20160716","20150609",
+                 "20160619","20150801"
+                ]  
+"""
 
-exp          =  ["20150606","20150609","20150627",
-                 "20150801","20150829",     
-                 "20160518","20160530",     
-                 "20160610","20160611","20160614",
-                 "20160619","20160625",     
-                 "20160716","20160719","20160720",
-                 "20160818","20160819", 
-                 "20160830"]  
+"""
+label       ='small_lsf'
+exp          =  [
+                 "20150627","20160518",
+                ]  
+"""
+"""
+label       ='medium_lsf'
+exp          =  [
+                 "20150606","20160625",     
+                 "20160818",
+                ]  
+"""
+
+#"""
+label       ='large_lsf'
+exp          =  [
+                 "20160830",
+                 "20160610","20160720",
+                 "20160716","20150609",
+                 "20160619","20150801"
+                ]  
+#"""
 
 
 #snd
@@ -99,30 +126,9 @@ for ex in exp:
     T_all.append(T)
     q_all.append(q)
     u_all.append(u_sn)
+
     v_all.append(v_sn)
     w_all.append(w_sn)
-
-
-#   243.50000  
-#   243.54167  
-#   243.58333  
-#   243.62500  
-#   243.66667  
-#   243.70833  
-#   243.75000  
-#   243.79167  
-#   243.83333  
-#   243.87500  
-#   243.91667  
-#   243.95833  
-#   244.00000  
-#   244.04167  
-#   244.08333  
-#   244.12500  
-#   244.16667  
-#   244.20833  
-#   244.25000
-#
 
 
 #Large size sounding
@@ -192,7 +198,6 @@ time=np.linspace(it,ft,len(time))
 
 
 
-
 theta_ls=np.mean(tpls_all,axis=0)
 q_ls=np.mean(qls_all ,axis=0)
 u_ls=np.mean(uls_all ,axis=0)
@@ -209,6 +214,7 @@ T_skin_mean =np.mean(sst_all,axis=0)
 SH_mean     =np.mean(shf_all,axis=0)
 LH_mean     =np.mean(lhf_all,axis=0)
 Tau_mean    =np.mean(tau_all,axis=0)
+
 
 
 
@@ -230,9 +236,9 @@ pp=-999.0000
 
 for k in range(0,len(time)): 
 
-    file11.write("%f\t%d\t%f\tday\tlevels\tpres0\n"%(time[k],size[may],p0))
+    file11.write("%f\t%d\t%f\tday\tlevels\tpres0\n"%(time[k],size[may]/10+1,p0))
 
-    for i in range(0,size[may]):
+    for i in range(0,size[may],10):
 
         file11.write("%f\t%f\t%f\t%f\t%f\t%f\n"%(z_all[may][0,i],pp,theta_inv[i],q_sam[i],u[i],v[i])) 
 
@@ -253,6 +259,12 @@ for k in range(0,len(time_lsf)):
 file11.close()
 file22.close()
 file33.close()
+
+
+print("______________")
+print("Forcing %s was created in \n %s"%(label,folder))
+print("______________")
+
 
 """
 ## Writing NetCDF files to scam 
