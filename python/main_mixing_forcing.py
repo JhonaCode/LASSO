@@ -66,9 +66,11 @@ pyf='/dados/bamc/jhonatan.aguirre/git_repositories/LASSO/python'
 folder='%s/%s'%(pyf,namef)
 
 
-label       ='testeeeeee_lsf'
-ex1         ='medium_lsf'
-ex2         ='large_lsf'
+#ex1         ='medium_lsf'
+#ex2         ='large_lsf'
+
+ex1         ='small_lsf'
+ex2         ='medium_lsf'
 
 
 #SND
@@ -138,11 +140,13 @@ if may==1:
   itrw1=np.interp(z2[may,:],z1[0],w1_sn[0,:])
 
 
+#label       ='medium_tqls_large_lsf'
+label       ='small_tqinit_medium_lsf'
 
 #SND
 time     =time1
-theta_inv=itrT1
-q_sam    =itrq1
+theta_inv=itrT2
+q_sam    =itrq2
 u        =itru1
 v        =itrv1
 w        =itrw1
@@ -159,7 +163,7 @@ zls  =zls1
 
 #SFC    
 tsf   = tsf1
-T_skin =sst1 
+T_skin =sst1
 SH     =shf1
 LH     =lhf1
 Tau    =tau1

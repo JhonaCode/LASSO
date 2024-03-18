@@ -18,6 +18,9 @@ from    Parameters_dict import *
 
 import  matplotlib.pyplot as plt
 
+# to work without display
+plt.switch_backend('agg')
+
 #Defined the name of the experiments defined in Parameters files 
 #separate with colon
 
@@ -37,7 +40,7 @@ exp          =  [f060615,f090615,f270615,
                  f180816,f190816,
                  f300816] 
 
-var     =  ['MCUP','RELH','WOBS','CLD']
+var     =  ['MCUP']#,'RELH','WOBS','CLD']
 #var     =  ['QVOBS']#,'RELH','WOBS','CLD']
 
 #print(f060615.z[0:80])
