@@ -65,25 +65,65 @@ import   metpy.calc
 from     metpy.units import units
 
 # to work without display
-#plt.switch_backend('agg')
+plt.switch_backend('agg')
 
 
 namef ='lsf_cases'
 pyf   ='/dados/bamc/jhonatan.aguirre/git_repositories/LASSO/python'
 folder='%s/%s'%(pyf,namef)
 
-"""
-label       ='all1_lsf'
+label       ='todos_lsf_final'
+
+#"""
 exp          =  [
-                 "20150627","20160518",
-                 "20150606","20160625",     
-                 "20160818",
-                 "20160830",
-                 "20160610","20160720",
-                 "20160716","20150609",
-                 "20160619","20150801"
-                ]  
-"""
+                 '20150606',###18'c)06-06-2015'
+                 "20150609",###35
+                 "20150801",###36
+                 "20150801",###37
+                 '20150627',###3 -c)18-05-2016
+                 '20160518',###6 -f)18-05-2016
+                 '20160625',###19'n)25-06-2016'
+                 '20160818',###20'o)18-08-2016'
+                 "20160830",###38
+                 "20160610",###39
+                 "20160720",###40
+                 "20160716",###41
+                 "20160619",###42
+                 '20180522',###7 g)22-05-2018
+                 '20181001',###4 -d)01-10-2018
+                 '20180606',###5 -e)06-06-2018
+                 '20180707',###8 h)07-07-2018
+                 '20180917',###9 i)17-09-2018
+                 '20180901',###11k)01-09-2018
+                 '20180916',###12l)16-09-2018
+                 '20180514',###16p)14-05-2018
+                 '20180709',###17q)09-07-2018
+                 '20180911',###21'a)01-09-2018'
+                 '20180619',###24'e)19-06-2018'
+                 '20180914',###26'g)14-09-2018'
+                 '20181002',###28'i)02-10-2018'
+                 '20180712',###29'j)12-07-2018'
+                 '20180710',###32'm)10-07-2018'
+                 '20180618',###33'p)18-06-2018'
+                 '20180705',###34'q)05-07-2018'
+                 "20180711",###43
+                 "20180523",###45
+                 "20180811",###46
+                 '20190612',###22'b)12-06-2019'
+                 '20190517',###23'd)17-05-2019'
+                 '20190805',###25'f)05-08-2019'
+                 '20190404',###10j)04-04-2019
+                 '20190709',###1 -a)09-07-2019
+                 '20190704',###2 -b)04-07-2019
+                 '20190701',###13m)01-07-2019
+                 '20190617',###14n)17-06-2019
+                 '20190626',###15o)26-06-2019
+                 '20190901',###27'h)01-09-2019'
+                 '20190707',###30'k)07-07-2019'
+                 '20190714',###31'l)14-07-2019'
+                 "20190804",###44
+                 ]
+#"""
 
 """
 label       ='small_lsf_final'
@@ -114,23 +154,23 @@ exp          =  [
                  '20160625',###'n)25-06-2016'
                  '20160818',###'o)18-08-2016'
                  '20180911',###'a)01-09-2018'
-                 '20190612',###'b)12-06-2019'
-                 '20190517',###'d)17-05-2019'
                  '20180619',###'e)19-06-2018'
-                 '20190805',###'f)05-08-2019'
                  '20180914',###'g)14-09-2018'
-                 '20190901',###'h)01-09-2019'
                  '20181002',###'i)02-10-2018'
                  '20180712',###'j)12-07-2018'
-                 '20190707',###'k)07-07-2019'
-                 '20190714',###'l)14-07-2019'
                  '20180710',###'m)10-07-2018'
                  '20180618',###'p)18-06-2018'
                  '20180705',###'q)05-07-2018'
+                 '20190901',###'h)01-09-2019'
+                 '20190805',###'f)05-08-2019'
+                 '20190612',###'b)12-06-2019'
+                 '20190517',###'d)17-05-2019'
+                 '20190707',###'k)07-07-2019'
+                 '20190714',###'l)14-07-2019'
                 ]  
 """
 
-#"""
+"""
 label        =  'large_lsf_final'
 
 exp          =  [
@@ -147,7 +187,7 @@ exp          =  [
                  "20180523",
                  "20180811",
                 ]  
-#"""
+"""
 
 
 #snd
@@ -166,14 +206,14 @@ for ex in exp:
 
     path1='%s/lasso_sam_%s/config'%(computer,ex)
 
-    time,z,pressure,p0,T,q,u_sn,v_sn,w_sn=rs.read(path1,'snd')
+    time,z,pressure,p0,T,q,u_sn,v_sn,w_sn=rs.read(path1,'snd_f')
     
     size.append(T.shape[1])
+
     z_all.append(z)
     T_all.append(T)
     q_all.append(q)
     u_all.append(u_sn)
-
     v_all.append(v_sn)
     w_all.append(w_sn)
 
@@ -187,19 +227,40 @@ u_t=[]
 v_t=[]
 w_t=[]
 
+print(size)
+
 for i in range (len(exp)):
 
-    itrT=np.interp(z_all[may][0],z_all[i][0],T_all[i][0,:])
-    itrq=np.interp(z_all[may][0],z_all[i][0],q_all[i][0,:])
-    itru=np.interp(z_all[may][0],z_all[i][0],u_all[i][0,:])
-    itrv=np.interp(z_all[may][0],z_all[i][0],v_all[i][0,:])
-    itrw=np.interp(z_all[may][0],z_all[i][0],w_all[i][0,:])
+    if (z_all[may].shape[1]>z_all[i].shape[1]):
+
+        #print(z_all[may].shape[1],z_all[i].shape[1],'snd_f')
+        itrT=np.interp(z_all[may][0],z_all[i][0],T_all[i][0,:])
+        itrq=np.interp(z_all[may][0],z_all[i][0],q_all[i][0,:])
+        itru=np.interp(z_all[may][0],z_all[i][0],u_all[i][0,:])
+        itrv=np.interp(z_all[may][0],z_all[i][0],v_all[i][0,:])
+        itrw=np.interp(z_all[may][0],z_all[i][0],w_all[i][0,:])
+
+    else:
+
+        itrT=T_all[i][0,:]
+        itrq=q_all[i][0,:]
+        itru=u_all[i][0,:]
+        itrv=v_all[i][0,:]
+        itrw=w_all[i][0,:]
+
+    #print(itrT.shape,'shpa')
 
     T_t.append(itrT)
     q_t.append(itrq)
     u_t.append(itru)
     v_t.append(itrv)
     w_t.append(itrw)
+
+
+#plt.plot(T_t[0][:],z_all[may][0,:],'r+')
+#plt.plot(T_all[0][0,:],z_all[0][0,:]  ,'g*')
+#plt.show()
+#exit()
 
 #sfc
 tsf_2i=[]
@@ -209,8 +270,7 @@ lhf_2i=[]
 tau_2i=[]
 
 #lsf
-
-tls_2i=[]
+tls_2i =[]
 tpls_2i=[]
 qls_2i =[]
 uls_2i =[]
@@ -225,7 +285,8 @@ for ex in exp:
 
     path1='%s/lasso_sam_%s/config'%(computer,ex)
     
-    tls,zls,pressurels,p0,tpls,qls,uls,vls,wls=rs.read(path1,'lsf')
+    tls,zls,pressurels,p0,tpls,qls,uls,vls,wls=rs.read(path1,'lsf_f')
+    size_lsf.append([tls.shape[0],tls[0]])
 
     tls_2i.append(tls)
     tpls_2i.append(tpls)
@@ -234,9 +295,7 @@ for ex in exp:
     vls_2i.append(vls)
     wls_2i.append(wls)
 
-
-    size_lsf.append([tls.shape[0],tls[0]])
-    tsf,sst,shf,lhf,tau=rs.read_1d(path1,'sfc')
+    tsf,sst,shf,lhf,tau=rs.read_1d(path1,'sfc_f')
     size_sfc.append([tsf.shape[0],tsf[0]])
 
     tsf_2i.append(tsf)
@@ -245,9 +304,18 @@ for ex in exp:
     lhf_2i.append(lhf)
     tau_2i.append(tau)
 
-mls=np.argmax(size_lsf,axis=0)[0]
-X1, Y1 = np.meshgrid(tls_2i[mls]-size_lsf[mls][1],zls[mls])
+mls     =np.argmax(size_lsf,axis=0)[0]
+X1, Y1  =np.meshgrid(tls_2i[mls]-size_lsf[mls][1]+0.5,zls[mls])
 
+#print(X1[0,:])
+#print(X1[0,:].shape[0])
+#print(X1[0,:].shape[0],X1[0,:]+0.5)
+#time_lsf=tls_2i[mls]-size_lsf[mls][1]+0.5
+#print(time_lsf)
+#print(tls_2i[mls])
+#exit()
+#exit()
+#
 
 tpls_all=[]
 qls_all =[]
@@ -262,30 +330,45 @@ for i in range (len(exp)):
 
         print(tls_2i[i].shape,tls_2i[mls].shape,'lsf')
 
-        interp_tpls = RegularGridInterpolator((tls_2i[i]-size_lsf[i][1],zls[i]), tpls_2i[i],method='cubic',bounds_error=False)
-        interp_qls = RegularGridInterpolator((tls_2i[i]-size_lsf[i][1],zls[i]) , qls_2i[i],method='cubic',bounds_error=False)
-        interp_uls = RegularGridInterpolator((tls_2i[i]-size_lsf[i][1],zls[i]) , uls_2i[i],method='cubic',bounds_error=False)
-        interp_vls = RegularGridInterpolator((tls_2i[i]-size_lsf[i][1],zls[i]) , vls_2i[i],method='cubic',bounds_error=False)
-        interp_wls = RegularGridInterpolator((tls_2i[i]-size_lsf[i][1],zls[i]) , wls_2i[i],method='cubic',bounds_error=False)
-    
-    
-        tpls_all.append(interp_tpls((X1,Y1)).T)
-        qls_all.append( interp_qls( (X1,Y1)).T)
-        uls_all.append( interp_uls( (X1,Y1)).T)
-        vls_all.append( interp_vls( (X1,Y1)).T)
-        wls_all.append( interp_wls( (X1,Y1)).T)
+        interp_tpls =RegularGridInterpolator((tls_2i[i]-size_lsf[i][1]+0.5,zls[i]), tpls_2i[i],method='cubic',bounds_error=False)
+        interp_qls = RegularGridInterpolator((tls_2i[i]-size_lsf[i][1]+0.5,zls[i]) , qls_2i[i],method='cubic',bounds_error=False)
+        interp_uls = RegularGridInterpolator((tls_2i[i]-size_lsf[i][1]+0.5,zls[i]) , uls_2i[i],method='cubic',bounds_error=False)
+        interp_vls = RegularGridInterpolator((tls_2i[i]-size_lsf[i][1]+0.5,zls[i]) , vls_2i[i],method='cubic',bounds_error=False)
+        interp_wls = RegularGridInterpolator((tls_2i[i]-size_lsf[i][1]+0.5,zls[i]) , wls_2i[i],method='cubic',bounds_error=False)
 
+        tpls_1=interp_tpls((X1,Y1)).T
+        qls_1=interp_qls( (X1,Y1)).T
+        uls_1=interp_uls( (X1,Y1)).T
+        vls_1=interp_vls( (X1,Y1)).T
+        wls_1=interp_wls( (X1,Y1)).T
 
+    else:
+
+        tpls_1=tpls_2i[i]
+        qls_1= qls_2i[i] 
+        uls_1= uls_2i[i] 
+        vls_1= vls_2i[i] 
+        wls_1= wls_2i[i] 
+
+    tpls_all.append(tpls_1)
+    qls_all.append( qls_1)
+    uls_all.append( uls_1)
+    vls_all.append( vls_1)
+    wls_all.append( wls_1)
+
+#
 #print(tpls_2i[0].shape)
 #print(tpls_2i[mls].shape)
 #print(tls_2i[0]-size_lsf[0][1])
 #tls_2i[0]-size_lsf[0][1]
-#plt.plot(tls_2i[0]-size_lsf[0][1],tpls_2i[0][:,8],'*r')
-#plt.plot(tls_2i[mls]-size_lsf[mls][1],var1[:,8],'+b')
+
+#plt.plot(tls_2i[0]  -size_lsf[0][1]+0.5  , tpls_2i[0][:,8] ,'*r')
+#plt.plot(tls_2i[mls]-size_lsf[mls][1]+0.5,tpls_all[0][:,8] ,'+b')
 #plt.show()
+
 #print(var1.shape)
 #exit()
-
+#
 ###################################
 ###################################
 
@@ -305,38 +388,51 @@ for i in range (len(exp)):
 
         print(tsf_2i[i].shape[0],tsf_2i[may].shape[0],'sfc')
 
-        itrssf=np.interp(tsf_2i[may]-size_sfc[may][1],tsf_2i[i]-size_sfc[i][1],sst_2i[i][:])
-        itrshf=np.interp(tsf_2i[may]-size_sfc[may][1],tsf_2i[i]-size_sfc[i][1],shf_2i[i][:])
-        itrlhf=np.interp(tsf_2i[may]-size_sfc[may][1],tsf_2i[i]-size_sfc[i][1],lhf_2i[i][:])
-        itrtau=np.interp(tsf_2i[may]-size_sfc[may][1],tsf_2i[i]-size_sfc[i][1],tau_2i[i][:])
+        itrssf=np.interp(tsf_2i[may]-size_sfc[may][1]+0.5,tsf_2i[i]-size_sfc[i][1]+0.5,sst_2i[i][:])
+        itrshf=np.interp(tsf_2i[may]-size_sfc[may][1]+0.5,tsf_2i[i]-size_sfc[i][1]+0.5,shf_2i[i][:])
+        itrlhf=np.interp(tsf_2i[may]-size_sfc[may][1]+0.5,tsf_2i[i]-size_sfc[i][1]+0.5,lhf_2i[i][:])
+        itrtau=np.interp(tsf_2i[may]-size_sfc[may][1]+0.5,tsf_2i[i]-size_sfc[i][1]+0.5,tau_2i[i][:])
 
-        sst_all.append(itrssf)
-        shf_all.append(itrshf)
-        lhf_all.append(itrlhf)
-        tau_all.append(itrtau)
+    else:
 
-#plt.plot(tsf_2i[may]-size_sfc[may][1],sst_all[0],'*g')
-#plt.plot(tsf_2i[0]  -size_sfc[0][1]  ,sst_2i[0] ,'*r')
+        itrssf=sst_2i[i][:]
+        itrshf=shf_2i[i][:]
+        itrlhf=lhf_2i[i][:]
+        itrtau=tau_2i[i][:]
+
+    sst_all.append(itrssf)
+    shf_all.append(itrshf)
+    lhf_all.append(itrlhf)
+    tau_all.append(itrtau)
+
+
+#plt.plot(tsf_2i[may]-size_sfc[may][1]+0.5,sst_all[0],'+g')
+#plt.plot(tsf_2i[0]  -size_sfc[0][1]  +0.5,sst_2i[0] ,'*r')
 #plt.show()
 #
 #exit()
 
 
 # To created the time at the first day of the year 
-it=0.5
-ft=1.25
-time_lsf=np.linspace(it,ft,len(tsf_2i[may]))
+#it=0.5
+#ft=1.125
+#time_lsf=np.linspace(it,ft,len(tsf_2i[may]))
+#+0.5 para comecar as 6 da manha
+time_lsf=tls_2i[mls]-size_lsf[mls][1]+0.5
+                                     
+                                     
+#it=0.5                               
+#ft=1.25
+#time=np.linspace(it,ft,len(time))
 
-it=0.5
-ft=1.25
-time=np.linspace(it,ft,len(time))
+time=tsf_2i[may]-size_sfc[may][1]+0.5
 
 
-theta_ls=np.mean(tpls_all,axis=0)
-q_ls = np.mean(qls_all ,axis=0)
-u_ls = np.mean(uls_all ,axis=0)
-v_ls = np.mean(vls_all ,axis=0)
-w_ls = np.mean(wls_all ,axis=0)
+theta_ls= np.mean(tpls_all,axis=0)
+q_ls    = np.mean(qls_all ,axis=0)
+u_ls    = np.mean(uls_all ,axis=0)
+v_ls    = np.mean(vls_all ,axis=0)
+w_ls    = np.mean(wls_all ,axis=0)
 
 theta_inv = np.mean(T_t,axis=0)
 q_sam     = np.mean(q_t,axis=0)
@@ -370,8 +466,10 @@ pp=-999.0000
 for k in range(0,len(time)): 
 
     file11.write("%f\t%d\t%f\tday\tlevels\tpres0\n"%(time[k],size[may]/10+1,p0))
+    #file11.write("%f\t%d\t%f\tday\tlevels\tpres0\n"%(time[k],size[may],p0))
 
     for i in range(0,size[may],10):
+    #for i in range(0,size[may],1):
 
         file11.write("%f\t%f\t%f\t%f\t%f\t%f\n"%(z_all[may][0,i],pp,theta_inv[i],q_sam[i],u[i],v[i])) 
 
