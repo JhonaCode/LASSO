@@ -72,9 +72,9 @@ namef ='lsf_cases'
 pyf   ='/dados/bamc/jhonatan.aguirre/git_repositories/LASSO/python'
 folder='%s/%s'%(pyf,namef)
 
+"""
 label       ='todos_lsf_final'
 
-#"""
 exp          =  [
                  '20150606',###18'c)06-06-2015'
                  "20150609",###35
@@ -123,7 +123,7 @@ exp          =  [
                  '20190714',###31'l)14-07-2019'
                  "20190804",###44
                  ]
-#"""
+"""
 
 """
 label       ='small_lsf_final'
@@ -170,7 +170,7 @@ exp          =  [
                 ]  
 """
 
-"""
+#"""
 label        =  'large_lsf_final'
 
 exp          =  [
@@ -187,7 +187,7 @@ exp          =  [
                  "20180523",
                  "20180811",
                 ]  
-"""
+#"""
 
 
 #snd
@@ -233,7 +233,7 @@ for i in range (len(exp)):
 
     if (z_all[may].shape[1]>z_all[i].shape[1]):
 
-        #print(z_all[may].shape[1],z_all[i].shape[1],'snd_f')
+        print(z_all[may].shape[1],z_all[i].shape[1],'snd')
         itrT=np.interp(z_all[may][0],z_all[i][0],T_all[i][0,:])
         itrq=np.interp(z_all[may][0],z_all[i][0],q_all[i][0,:])
         itru=np.interp(z_all[may][0],z_all[i][0],u_all[i][0,:])
@@ -270,6 +270,7 @@ lhf_2i=[]
 tau_2i=[]
 
 #lsf
+zls_2i =[]
 tls_2i =[]
 tpls_2i=[]
 qls_2i =[]
@@ -288,6 +289,7 @@ for ex in exp:
     tls,zls,pressurels,p0,tpls,qls,uls,vls,wls=rs.read(path1,'lsf_f')
     size_lsf.append([tls.shape[0],tls[0]])
 
+    zls_2i.append(zls)
     tls_2i.append(tls)
     tpls_2i.append(tpls)
     qls_2i.append(qls)
@@ -476,11 +478,11 @@ for k in range(0,len(time)):
 
 for k in range(0,len(time_lsf)): 
 
-    file22.write("%f\t%d\t%f\tday\tlevels\tpres0\n"%(time_lsf[k],len(zls[0,:]),p0))
+    file22.write("%f\t%d\t%f\tday\tlevels\tpres0\n"%(time_lsf[k],len(zls_2i[mls][0,:]),p0))
 
-    for i in range(0,len(zls[0,:])):
+    for i in range(0,len(zls_2i[mls][0,:])):
 
-        file22.write("%f\t%f\t%e\t%e\t%f\t%f\t%f\n"%(zls[k,i],pp,theta_ls[k,i],q_ls[k,i],u_ls[k,i],v_ls[k,i],w_ls[k,i])) 
+        file22.write("%f\t%f\t%e\t%e\t%f\t%f\t%f\n"%(zls_2i[mls][k,i],pp,theta_ls[k,i],q_ls[k,i],u_ls[k,i],v_ls[k,i],w_ls[k,i])) 
 
 for k in range(0,len(time_lsf)): 
 

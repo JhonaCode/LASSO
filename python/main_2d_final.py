@@ -24,9 +24,9 @@ import  matplotlib.pyplot as plt
 
 
 exp          =  [
-                #small,
+                small,
                 medium,
-                #large,
+                large,
                 #todos,
                 ] 
 
@@ -72,7 +72,7 @@ var_to      =  [
                ]
 
 
-a0=(0,5.0)
+a0=(0,10.0)
 a1=[a0,a0,a0,a0]
 alt         =  [
                a1,a1,a1,a1,a1, 
