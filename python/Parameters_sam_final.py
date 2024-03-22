@@ -53,3 +53,15 @@ date_diurnal	= [(2024,1,1,9),(2024,1,1,19)]
 cal         	= ['days  since 2023-12-31 00:00:00 +06:00:00','gregorian']
 medium 	= sam.ncload(name,date,file_medium,cal,var1d,var2d,vars_diurnal,date_diurnal)
 
+
+
+name        	= 'todos'
+#note       	= Composto final  medium_lsf_final
+file_todos	= '/dados/bamc/jhonatan.aguirre/DATA/LASSO/SAM_OWN/OUT_STAT/LASSO_todos_lsf_final_144x226_100_50m_0p5.nc'
+var1d       	= ['MCUP','QC'] 
+var2d       	= ['MCUP','QC'] 
+vars_diurnal	= ['MCUP','QC']
+date        	= [(2024,1,1,9),(2024,1,1,19)] 
+date_diurnal	= [(2024,1,1,9),(2024,1,1,19)] 
+cal         	= ['days  since 2024-12-31 00:00:00 +06:00:00','gregorian']
+todos 	= sam.ncload(name,date,file_todos,cal,var1d,var2d,vars_diurnal,date_diurnal)

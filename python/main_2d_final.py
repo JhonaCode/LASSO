@@ -24,9 +24,9 @@ import  matplotlib.pyplot as plt
 
 
 exp          =  [
-                small,
+                #small,
                 medium,
-                large,
+                #large,
                 #todos,
                 ] 
 
