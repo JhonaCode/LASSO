@@ -26,7 +26,7 @@ var2d       	= ['MCUP','QC']
 vars_diurnal	= ['MCUP','QC']
 date        	= [(2024,1,1,9),(2024,1,1,19)] 
 date_diurnal	= [(2024,1,1,9),(2024,1,1,19)] 
-cal         	= ['days  since 2023-12-31 00:00:00 +06:00:00','gregorian']
+cal         	= ['days  since 2024-01-01 00:00:00 +06:00:00','gregorian']
 large 	= sam.ncload(name,date,file_large,cal,var1d,var2d,vars_diurnal,date_diurnal)
 
 
@@ -38,7 +38,7 @@ var2d       	= ['MCUP','QC']
 vars_diurnal	= ['MCUP','QC']
 date        	= [(2024,1,1,9),(2024,1,1,19)] 
 date_diurnal	= [(2024,1,1,9),(2024,1,1,19)] 
-cal         	= ['days  since 2023-12-31 00:00:00 +06:00:00','gregorian']
+cal         	= ['days  since 2024-01-01 00:00:00 +06:00:00','gregorian']
 small 	= sam.ncload(name,date,file_small,cal,var1d,var2d,vars_diurnal,date_diurnal)
 
 
@@ -50,7 +50,7 @@ var2d       	= ['MCUP','QC']
 vars_diurnal	= ['MCUP','QC']
 date        	= [(2024,1,1,9),(2024,1,1,19)] 
 date_diurnal	= [(2024,1,1,9),(2024,1,1,19)] 
-cal         	= ['days  since 2023-12-31 00:00:00 +06:00:00','gregorian']
+cal         	= ['days  since 2024-01-01 00:00:00 +06:00:00','gregorian']
 medium 	= sam.ncload(name,date,file_medium,cal,var1d,var2d,vars_diurnal,date_diurnal)
 
 
@@ -63,5 +63,5 @@ var2d       	= ['MCUP','QC']
 vars_diurnal	= ['MCUP','QC']
 date        	= [(2024,1,1,9),(2024,1,1,19)] 
 date_diurnal	= [(2024,1,1,9),(2024,1,1,19)] 
-cal         	= ['days  since 2024-12-31 00:00:00 +06:00:00','gregorian']
+cal         	= ['days  since 2024-01-01 00:00:00 +06:00:00','gregorian']
 todos 	= sam.ncload(name,date,file_todos,cal,var1d,var2d,vars_diurnal,date_diurnal)
